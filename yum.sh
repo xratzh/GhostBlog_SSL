@@ -62,8 +62,8 @@ forever stopall
 forever start /var/www/ghost/index.js
 sed -i '/forever start \/var\/www\/ghost\/index.js/d' /etc/rc.local
 sed -i '/exit 0/d' /etc/rc.local
-echo 'forever start /var/www/ghost/index.js' >> /etc/rc.local
-echo 'exit 0' >> /etc/rc.local
+echo "forever start /var/www/ghost/index.js" >> /etc/rc.local
+echo "exit 0" >> /etc/rc.local
 
 # install watchdog make sure vps always alive
 
