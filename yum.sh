@@ -18,13 +18,13 @@ echo ""
 echo " # Please input your Blog's domain : "
 read -p "   http://" URL
 
-# apt-get update and install curl unzip
+# yum update and install epel-release curl and unzip
 
 yum update -y
 yum install -y epel-release
 yum install -y curl unzip
 
-# rm old nodejs install a new edition
+# rm old nodejs install the new edition
 
 rm -rf /usr/bin/node
 yum autoremove -y nodejs
