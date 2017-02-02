@@ -30,7 +30,7 @@ rm -rf /usr/bin/node
 yum autoremove -y nodejs
 curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 yum install -y nodejs
-ln -s /usr/bin/nodejs /usr/bin/node
+ln -s /usr/bin/node /usr/bin/nodejs 
 
 #Download GhostBlog
 
@@ -75,21 +75,18 @@ yum install -y nginx
 
 cd /etc/nginx/conf.d/
 rm -rf *
-rm -rf /etc/nginx/nginx.conf
-touch /etc/nginx/nginx.conf
-echo 'server {' >> /etc/nginx/nginx.conf
-echo '    listen 80;' >> /etc/nginx/nginx.conf
-echo '    server_name '$URL';' >> /etc/nginx/nginx.conf
-echo '' >> /etc/nginx/nginx.conf
-echo '    location ~ ^/.well-known {' >> /etc/nginx/nginx.conf
-echo '        root /var/www/ghost;' >> /etc/nginx/nginx.conf
-echo '    }' >> /etc/nginx/nginx.conf
-echo '' >> /etc/nginx/nginx.conf
-echo '    location / {' >> /etc/nginx/nginx.conf
-echo '        return 301 https://$server_name$request_uri;' >> /etc/nginx/nginx.conf
-echo '    }' >> /etc/nginx/nginx.conf
-echo '}' >> /etc/nginx/nginx.conf
-ln -s /etc/nginx/nginx.conf /etc/nginx/conf.d/ghost.conf
+echo 'server {' >> /etc/nginx/conf.d/ghost.conf
+echo '    listen 80;' >> /etc/nginx/conf.d/ghost.conf
+echo '    server_name '$URL';' >> /etc/nginx/conf.d/ghost.conf
+echo '' >> /etc/nginx/conf.d/ghost.conf
+echo '    location ~ ^/.well-known {' >> /etc/nginx/conf.d/ghost.conf
+echo '        root /var/www/ghost;' >> /etc/nginx/conf.d/ghost.conf
+echo '    }' >> /etc/nginx/conf.d/ghost.conf
+echo '' >> /etc/nginx/conf.d/ghost.conf
+echo '    location / {' >> /etc/nginx/conf.d/ghost.conf
+echo '        return 301 https://$server_name$request_uri;' >> /etc/nginx/conf.d/ghost.conf
+echo '    }' >> /etc/nginx/conf.d/ghost.conf
+echo '}' >> /etc/nginx/conf.d/ghost.conf
 
 service nginx restart
 
@@ -101,38 +98,38 @@ cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 
 # add ssl config to nginx
 
-echo '' >> /etc/nginx/nginx.conf
-echo ' server {' >> /etc/nginx/nginx.conf
-echo '     listen 443 ssl;' >> /etc/nginx/nginx.conf
-echo '     server_name '$URL';' >> /etc/nginx/nginx.conf
-echo '' >> /etc/nginx/nginx.conf
-echo '     root /var/www/ghost;' >> /etc/nginx/nginx.conf
-echo '     index index.html index.htm;' >> /etc/nginx/nginx.conf
-echo '     client_max_body_size 10G;' >> /etc/nginx/nginx.conf
-echo '' >> /etc/nginx/nginx.conf
-echo '     location / {' >> /etc/nginx/nginx.conf
-echo '         proxy_pass http://localhost:2368;' >> /etc/nginx/nginx.conf
-echo '         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;' >> /etc/nginx/nginx.conf
-echo '         proxy_set_header Host $http_host;' >> /etc/nginx/nginx.conf
-echo '         proxy_set_header X-Forwarded-Proto $scheme;' >> /etc/nginx/nginx.conf
-echo '         proxy_buffering off;' >> /etc/nginx/nginx.conf
-echo '     }' >> /etc/nginx/nginx.conf
-echo '' >> /etc/nginx/nginx.conf
-echo '     ssl on;' >> /etc/nginx/nginx.conf
-echo '     ssl_certificate /etc/letsencrypt/live/'$URL'/fullchain.pem;' >> /etc/nginx/nginx.conf
-echo '     ssl_certificate_key /etc/letsencrypt/live/'$URL'/privkey.pem;' >> /etc/nginx/nginx.conf
-echo '     ssl_prefer_server_ciphers On;' >> /etc/nginx/nginx.conf
-echo '     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;' >> /etc/nginx/nginx.conf
+echo '' >> /etc/nginx/conf.d/ghost.conf
+echo ' server {' >> /etc/nginx/conf.d/ghost.conf
+echo '     listen 443 ssl;' >> /etc/nginx/conf.d/ghost.conf
+echo '     server_name '$URL';' >> /etc/nginx/conf.d/ghost.conf
+echo '' >> /etc/nginx/conf.d/ghost.conf
+echo '     root /var/www/ghost;' >> /etc/nginx/conf.d/ghost.conf
+echo '     index index.html index.htm;' >> /etc/nginx/conf.d/ghost.conf
+echo '     client_max_body_size 10G;' >> /etc/nginx/conf.d/ghost.conf
+echo '' >> /etc/nginx/conf.d/ghost.conf
+echo '     location / {' >> /etc/nginx/conf.d/ghost.conf
+echo '         proxy_pass http://localhost:2368;' >> /etc/nginx/conf.d/ghost.conf
+echo '         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;' >> /etc/nginx/conf.d/ghost.conf
+echo '         proxy_set_header Host $http_host;' >> /etc/nginx/conf.d/ghost.conf
+echo '         proxy_set_header X-Forwarded-Proto $scheme;' >> /etc/nginx/conf.d/ghost.conf
+echo '         proxy_buffering off;' >> /etc/nginx/conf.d/ghost.conf
+echo '     }' >> /etc/nginx/conf.d/ghost.conf
+echo '' >> /etc/nginx/conf.d/ghost.conf
+echo '     ssl on;' >> /etc/nginx/conf.d/ghost.conf
+echo '     ssl_certificate /etc/letsencrypt/live/'$URL'/fullchain.pem;' >> /etc/nginx/conf.d/ghost.conf
+echo '     ssl_certificate_key /etc/letsencrypt/live/'$URL'/privkey.pem;' >> /etc/nginx/conf.d/ghost.conf
+echo '     ssl_prefer_server_ciphers On;' >> /etc/nginx/conf.d/ghost.conf
+echo '     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;' >> /etc/nginx/conf.d/ghost.conf
 echo '     ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;' >> /etc/nginx/sites-available/ghost.conf
-echo '' >> /etc/nginx/nginx.conf
-echo '     location ~ ^/(sitemap.xml|robots.txt) {' >> /etc/nginx/nginx.conf
-echo '         root /var/www/ghost/public;' >> /etc/nginx/nginx.conf
-echo '     }' >> /etc/nginx/nginx.conf
-echo '' >> /etc/nginx/nginx.conf
-echo '     location ~ ^/.well-known {' >> /etc/nginx/nginx.conf
-echo '         root /var/www/ghost;' >> /etc/nginx/nginx.conf
-echo '     }' >> /etc/nginx/nginx.conf
-echo ' }' >> /etc/nginx/nginx.conf
+echo '' >> /etc/nginx/conf.d/ghost.conf
+echo '     location ~ ^/(sitemap.xml|robots.txt) {' >> /etc/nginx/conf.d/ghost.conf
+echo '         root /var/www/ghost/public;' >> /etc/nginx/conf.d/ghost.conf
+echo '     }' >> /etc/nginx/conf.d/ghost.conf
+echo '' >> /etc/nginx/conf.d/ghost.conf
+echo '     location ~ ^/.well-known {' >> /etc/nginx/conf.d/ghost.conf
+echo '         root /var/www/ghost;' >> /etc/nginx/conf.d/ghost.conf
+echo '     }' >> /etc/nginx/conf.d/ghost.conf
+echo ' }' >> /etc/nginx/conf.d/ghost.conf
 
 # restart your nginx
 
