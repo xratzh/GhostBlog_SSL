@@ -11,7 +11,7 @@ wget https://raw.githubusercontent.com/xratzh/ghostandssl/master/deb.sh
 #Used for yum* distributions
 
 ```
-wget https://raw.githubusercontent.com/xratzh/ghostandssl/master/deb.sh
+wget https://raw.githubusercontent.com/xratzh/ghostandssl/master/yum.sh
 
 ```
 ------
