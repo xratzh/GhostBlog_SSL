@@ -20,17 +20,18 @@ read -p "   http://" URL
 
 # apt-get update and install curl unzip
 
-apt-get update -y
-apt-get install -y curl unzip sudo
+yum update -y
+yum install -y epel-release
+yum install -y curl unzip
 
 # rm old nodejs install a new edition
 
 rm -rf /usr/bin/node
-apt-get autoremove -y nodejs
+yum autoremove -y nodejs
 curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
-apt-get install -y nodejs
+yum install -y nodejs
 ln -s /usr/bin/nodejs /usr/bin/node
-apt-get install -y build-essential
+yum install -y build-essential
 
 #Download GhostBlog
 
@@ -67,11 +68,11 @@ echo "exit 0" >> /etc/rc.local
 
 # install watchdog make sure vps always alive
 
-apt-get install -y watchdog
+yum install -y watchdog
 
 # install nginx echo config in ghost.config
 
-apt-get install -y nginx
+yum install -y nginx
 rm -rf /etc/nginx/sites-available/ghost.conf
 rm -rf /etc/nginx/sites-enabled/ghost.conf
 echo 'server {' >> /etc/nginx/sites-available/ghost.conf
