@@ -73,6 +73,8 @@ yum install -y watchdog
 
 yum install -y nginx
 
+chkconfig nginx on
+
 cd /etc/nginx/conf.d/
 rm -rf *
 echo 'server {' >> /etc/nginx/conf.d/ghost.conf
@@ -94,7 +96,7 @@ service nginx restart
 
 cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 
-/opt/certbot-auto certonly --webroot -w /var/www/ghost -d "$URL"
+echo y > /opt/certbot-auto certonly --webroot -w /var/www/ghost -d "$URL"
 
 # add ssl config to nginx
 
@@ -120,7 +122,7 @@ echo '     ssl_certificate /etc/letsencrypt/live/'$URL'/fullchain.pem;' >> /etc/
 echo '     ssl_certificate_key /etc/letsencrypt/live/'$URL'/privkey.pem;' >> /etc/nginx/conf.d/ghost.conf
 echo '     ssl_prefer_server_ciphers On;' >> /etc/nginx/conf.d/ghost.conf
 echo '     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;' >> /etc/nginx/conf.d/ghost.conf
-echo '     ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;' >> /etc/nginx/sites-available/ghost.conf
+echo '     ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;' >> /etc/nginx/conf.d/ghost.conf
 echo '' >> /etc/nginx/conf.d/ghost.conf
 echo '     location ~ ^/(sitemap.xml|robots.txt) {' >> /etc/nginx/conf.d/ghost.conf
 echo '         root /var/www/ghost/public;' >> /etc/nginx/conf.d/ghost.conf
@@ -137,10 +139,10 @@ service nginx restart
 
 # add a crontab job
 
-echo '0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade' >> /var/spool/cron/crontabs/root
+echo '0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade' >> /var/spool/cron/root
 
-echo "####################################################################"
-echo "#                                                                  #"
-echo "#             Your cerbot-auto will update every 2 months          #"
-echo "#                                                                  #"
-echo "####################################################################"
+echo "#########################################################################################"
+echo "#                                  Thanks for your use ^_^                              #"
+echo "#             Your cerbot-auto will update on the first day of every 2 months           #"
+echo "#                                                                                       #"
+echo "#########################################################################################"
