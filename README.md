@@ -5,21 +5,21 @@
 #Used for deb* distributions
 
 ```
-wget https://raw.githubusercontent.com/xratzh/ghostandssl/master/deb.sh
+wget https://raw.githubusercontent.com/xratzh/ghostandssl/master/deb.sh  
+sudo sh deb.sh
 
 ```
+
+------
+
 #Used for yum* distributions
 
 ```
-wget https://raw.githubusercontent.com/xratzh/ghostandssl/master/yum.sh
+wget https://raw.githubusercontent.com/xratzh/ghostandssl/master/yum.sh  
+sudo sh yum.sh
 
 ```
 ------
-
-*Then*  
-```
-sudo sh ghostandssl.sh
-```
 
 1. Enter your domain
 2. Choose 'Y'
