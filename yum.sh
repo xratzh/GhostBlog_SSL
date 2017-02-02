@@ -31,12 +31,11 @@ yum autoremove -y nodejs
 curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 yum install -y nodejs
 ln -s /usr/bin/nodejs /usr/bin/node
-yum install -y build-essential
 
 #Download GhostBlog
 
 mkdir /var/www
-cd /var/www
+cd /var/www/
 rm -rf ghost
 curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip
 unzip -uo ghost.zip -d ghost
@@ -73,7 +72,7 @@ yum install -y watchdog
 # install nginx echo config in ghost.config
 
 yum install -y nginx
-cd /etc/nginx/conf.d/
+
 rm default.conf
 rm -rf /etc/nginx/nginx.conf
 touch /etc/nginx/nginx.conf
