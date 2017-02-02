@@ -74,7 +74,7 @@ yum install -y watchdog
 
 yum install -y nginx
 rm -rf /etc/nginx/nginx.conf
-rm -rf /etc/nginx/nginx.conf
+rm -rf /etc/nginx/conf.d/ghost.conf
 echo 'server {' >> /etc/nginx/nginx.conf
 echo '    listen 80;' >> /etc/nginx/nginx.conf
 echo '    server_name '$URL';' >> /etc/nginx/nginx.conf
