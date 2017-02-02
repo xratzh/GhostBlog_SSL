@@ -5,7 +5,8 @@
 #Used for deb* distributions
 
 ```
-wget https://raw.githubusercontent.com/xratzh/ghostandssl/master/deb.sh  
+wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/deb.sh  
+
 sudo sh deb.sh
 
 ```
@@ -15,7 +16,8 @@ sudo sh deb.sh
 #Used for yum* distributions
 
 ```
-wget https://raw.githubusercontent.com/xratzh/ghostandssl/master/yum.sh  
+wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/yum.sh  
+
 sudo sh yum.sh
 
 ```
