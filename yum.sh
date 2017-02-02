@@ -63,8 +63,8 @@ forever stopall
 forever start /var/www/ghost/index.js
 sed -i '/forever start \/var\/www\/ghost\/index.js/d' /etc/rc.local
 sed -i '/exit 0/d' /etc/rc.local
-echo "forever start /var/www/ghost/index.js" >> /etc/rc.local
-echo "exit 0" >> /etc/rc.local
+echo 'forever start /var/www/ghost/index.js' >> /etc/rc.local
+echo 'exit 0' >> /etc/rc.local
 
 # install watchdog make sure vps always alive
 
@@ -73,8 +73,10 @@ yum install -y watchdog
 # install nginx echo config in ghost.config
 
 yum install -y nginx
+cd /etc/nginx/conf.d/
+rm default.conf
 rm -rf /etc/nginx/nginx.conf
-rm -rf /etc/nginx/conf.d/ghost.conf
+touch /etc/nginx/nginx.conf
 echo 'server {' >> /etc/nginx/nginx.conf
 echo '    listen 80;' >> /etc/nginx/nginx.conf
 echo '    server_name '$URL';' >> /etc/nginx/nginx.conf
@@ -88,6 +90,7 @@ echo '        return 301 https://$server_name$request_uri;' >> /etc/nginx/nginx.
 echo '    }' >> /etc/nginx/nginx.conf
 echo '}' >> /etc/nginx/nginx.conf
 ln -s /etc/nginx/nginx.conf /etc/nginx/conf.d/ghost.conf
+
 service nginx restart
 
 # letsencryt
