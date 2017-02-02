@@ -73,7 +73,8 @@ yum install -y watchdog
 
 yum install -y nginx
 
-rm default.conf
+cd /etc/nginx/conf.d/
+rm -rf *
 rm -rf /etc/nginx/nginx.conf
 touch /etc/nginx/nginx.conf
 echo 'server {' >> /etc/nginx/nginx.conf
