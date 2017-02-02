@@ -28,7 +28,7 @@ yum install -y curl unzip
 
 rm -rf /usr/bin/node
 yum autoremove -y nodejs
-curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
+curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 yum install -y nodejs
 ln -s /usr/bin/nodejs /usr/bin/node
 yum install -y build-essential
