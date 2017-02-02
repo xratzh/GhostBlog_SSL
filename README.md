@@ -1,8 +1,7 @@
-*A combination of AutoGhost.sh and letsencrypt.sh*
+*A script to install ghost blog with ssl*
 ------
-*Start with*
 
-#Used for deb* distributions
+###For deb* distributions
 
 ```
 wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/deb.sh  
@@ -13,7 +12,7 @@ sudo sh deb.sh
 
 ------
 
-#Used for yum* distributions
+###For yum* distributions
 
 ```
 wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/yum.sh  
