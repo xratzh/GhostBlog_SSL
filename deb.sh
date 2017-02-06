@@ -6,7 +6,7 @@ echo ""
 echo "########################################################"
 echo "#                                                      #"
 echo "#    o--------------------------------------------o    #"
-echo "#    |         Thanks for use ghostwithssl        |    #"
+echo "#    |        Thanks for using ghostwithssl       |    #"
 echo "#    | Oneclick to build your GhostBlog with ssl! |    #"
 echo "#    o--------------------------------------------o    #"
 echo "#                                                      #"
@@ -104,7 +104,6 @@ echo '     server_name '$URL';' >> /etc/nginx/sites-available/ghost.conf
 echo '' >> /etc/nginx/sites-available/ghost.conf
 echo '     root /var/www/ghost;' >> /etc/nginx/sites-available/ghost.conf
 echo '     index index.html index.htm;' >> /etc/nginx/sites-available/ghost.conf
-echo '     client_max_body_size 10G;' >> /etc/nginx/sites-available/ghost.conf
 echo '' >> /etc/nginx/sites-available/ghost.conf
 echo '     location / {' >> /etc/nginx/sites-available/ghost.conf
 echo '         proxy_pass http://localhost:2368;' >> /etc/nginx/sites-available/ghost.conf
