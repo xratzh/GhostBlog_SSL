@@ -1,23 +1,10 @@
 *A script to install ghost blog with ssl*
 ------
 
-###For deb* distributions
-
 ```
-wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/deb.sh  
+wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/GbS.sh  
 
-sudo sh deb.sh
-
-```
-
-------
-
-###For yum* distributions
-
-```
-wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/yum.sh  
-
-sudo sh yum.sh
+sudo sh GbS.sh
 
 ```
 ------
