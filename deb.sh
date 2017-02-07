@@ -135,6 +135,9 @@ service nginx restart
 
 echo '0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade' >> /var/spool/cron/crontabs/root
 
+clear
+
+echo " "
 echo "####################################################################"
 echo "#                     Thanks agnain  ^_^                           #"
 echo "#         Your SSL will update on the 1st in every 2 months        #"
