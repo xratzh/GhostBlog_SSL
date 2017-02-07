@@ -6,7 +6,7 @@ echo ""
 echo "########################################################"
 echo "#                                                      #"
 echo "#    o--------------------------------------------o    #"
-echo "#    |         Thanks for use ghostwithssl        |    #"
+echo "#    |        Thanks for using ghostwithssl       |    #"
 echo "#    | Oneclick to build your GhostBlog with ssl! |    #"
 echo "#    o--------------------------------------------o    #"
 echo "#                                                      #"
@@ -55,15 +55,15 @@ rm -rf setconfig.sh
 sed -i 's/data\/ghost/data\/#ghost/g' config.js
 rm -rf /var/www/ghost/content/data/*.db
 
-# install forever keep Ghost online
+# install pm2 keep Ghost online
+cd /var/www/ghost/
 
-npm install forever -g
-forever stopall
-forever start /var/www/ghost/index.js
-sed -i '/forever start \/var\/www\/ghost\/index.js/d' /etc/rc.local
-sed -i '/exit 0/d' /etc/rc.local
-echo "forever start /var/www/ghost/index.js" >> /etc/rc.local
-echo "exit 0" >> /etc/rc.local
+npm install pm2 -g
+
+NODE_ENV=production pm2 start index.js --name "ghost"
+
+pm2 startup centos
+pm2 save
 
 # install watchdog make sure vps always alive
 
@@ -133,9 +133,10 @@ echo '         root /var/www/ghost;' >> /etc/nginx/conf.d/ghost.conf
 echo '     }' >> /etc/nginx/conf.d/ghost.conf
 echo ' }' >> /etc/nginx/conf.d/ghost.conf
 
-# restart your nginx
+# restart your nginx and ghost
 
 service nginx restart
+pm2 restart ghost
 
 # add a crontab job
 
