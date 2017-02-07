@@ -140,8 +140,11 @@ pm2 restart ghost
 
 echo '0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade' >> /var/spool/cron/root
 
-echo "#########################################################################################"
-echo "#                                  Thanks for your use ^_^                              #"
-echo "#             Your cerbot-auto will update on the first day of every 2 months           #"
-echo "#                                                                                       #"
-echo "#########################################################################################"
+clear
+
+echo " "
+echo "####################################################################"
+echo "#                     Thanks agnain  ^_^                           #"
+echo "#         Your SSL will update on the 1st in every 2 months        #"
+echo "#                                                                  #"
+echo "####################################################################"
