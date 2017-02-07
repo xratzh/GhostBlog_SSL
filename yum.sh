@@ -1,13 +1,12 @@
 #/bin/sh
 
 # Begin
-clear
 echo ""
 echo "########################################################"
 echo "#                                                      #"
 echo "#    o--------------------------------------------o    #"
-echo "#    |        Thanks for using ghostwithssl       |    #"
-echo "#    | Oneclick to build your GhostBlog with ssl! |    #"
+echo "#    |        Thanks for using GhostBlog_ssl      |    #"
+echo "#    |  Oneclick to build your GhostBlog and ssl  |    #"
 echo "#    o--------------------------------------------o    #"
 echo "#                                                      #"
 echo "########################################################"
