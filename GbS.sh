@@ -11,12 +11,10 @@ fi
 /bin/uname -a > /tmp/osversion.txt
 
 if grep "Ubuntu" "/tmp/osversion.txt" > /dev/null; then
-    echo "Ubuntu"
     wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/deb.sh  
     sudo sh deb.sh
     rm deb.sh
 elif grep "SMP" "/tmp/osversion.txt" > /dev/null; then
-    echo "CentOS"
     wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/yum.sh  
     sudo sh yum.sh
     rm yum.sh
