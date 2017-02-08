@@ -142,7 +142,7 @@ echo "#         Your SSL will update on the 1st in every 2 months        #"
 echo "#                                                                  #"
 echo "####################################################################"
 echo ""
-echo " >>> Your blog : https://"$URL
+echo " >>> Your blog : https://"${URL}
 echo " >>> All GhostBlog files install in : /var/www/ghost"
 echo " >>> Database : /var/www/ghost/content/data/#ghost-dev.db"
 echo " >>> Nodejs : "`node -v`"    npm : "`npm -v`
