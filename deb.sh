@@ -25,10 +25,8 @@ apt-get install -y curl unzip sudo
 
 rm -rf /usr/bin/node
 apt-get autoremove -y nodejs
-curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
+curl --silent --location https://deb.nodesource.com/setup_7.x | sudo bash -
 apt-get install -y nodejs
-ln -s /usr/bin/nodejs /usr/bin/node
-apt-get install -y build-essential
 
 #Download GhostBlog
 
@@ -94,7 +92,7 @@ cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 
 /opt/certbot-auto certonly --webroot -w /var/www/ghost -d "$URL"
 
-# add ssl config to nginx
+# add ssl into nginx config file
 
 cat > /etc/nginx/sites-available/ghost.conf <<EOL
 server {
