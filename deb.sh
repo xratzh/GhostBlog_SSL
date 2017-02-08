@@ -90,7 +90,7 @@ service nginx restart
 
 cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 
-/opt/certbot-auto certonly --webroot -w /var/www/ghost -d "$URL"
+/opt/certbot-auto certonly --no-eff-email --webroot -w /var/www/ghost -d "$URL"
 
 # add ssl into nginx config file
 
