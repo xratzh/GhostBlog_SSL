@@ -74,12 +74,12 @@ rm -rf /etc/nginx/sites-enabled/ghost.conf
 cat > /etc/nginx/sites-available/ghost.conf <<EOL
 server {
     listen 80;
-    server_name "$URL" www."$URL";
+    server_name ${URL} www.${URL};
     location ~ ^/.well-known {
         root /var/www/ghost;
     }
     location / {
-        return 301 https://"$URL"request_uri;
+        return 301 https://${URL}$request_uri;
     }
 }
 EOL
@@ -94,10 +94,10 @@ cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 
 # add ssl into nginx config file
 
-cat > /etc/nginx/sites-available/ghost.conf <<EOL
+cat >> /etc/nginx/sites-available/ghost.conf <<EOL
 server {
     listen 443 ssl;
-    server_name "$URL";
+    server_name ${URL};
     
     root /var/www/ghost;
     index index.html index.htm;
@@ -111,8 +111,8 @@ server {
         proxy_buffering off;
      }
     ssl on;
-    ssl_certificate /etc/letsencrypt/live/"$URL"/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/"$URL"/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/${URL}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${URL}/privkey.pem;
     ssl_prefer_server_ciphers On;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
@@ -141,3 +141,8 @@ echo "#                     Thanks agnain  ^_^                           #"
 echo "#         Your SSL will update on the 1st in every 2 months        #"
 echo "#                                                                  #"
 echo "####################################################################"
+echo ""
+echo " >>> Your blog : https://"$URL
+echo " >>> All GhostBlog files install in : /var/www/ghost"
+echo " >>> Database : /var/www/ghost/content/data/#ghost-dev.db"
+echo " >>> Nodejs : "`node -v`"    npm : "`npm -v`
