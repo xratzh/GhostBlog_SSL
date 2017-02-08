@@ -103,7 +103,7 @@ cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 cat > /etc/nginx/conf.d/ghost.conf <<EOL
 server {
     listen 443 ssl;
-    server_name sieben.win;
+    server_name '$URL';
     
     root /var/www/ghost;
     index index.html index.htm;
