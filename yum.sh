@@ -27,7 +27,6 @@ rm -rf /usr/bin/node
 yum autoremove -y nodejs
 curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 yum install -y nodejs
-ln -s /usr/bin/node /usr/bin/nodejs 
 
 #Download GhostBlog
 
@@ -97,7 +96,7 @@ cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 
 /opt/certbot-auto certonly --webroot -w /var/www/ghost -d "$URL"
 
-# add ssl config to nginx
+# add ssl into nginx config file
 
 
 cat > /etc/nginx/conf.d/ghost.conf <<EOL
