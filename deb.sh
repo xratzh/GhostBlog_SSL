@@ -72,18 +72,19 @@ apt-get install -y watchdog
 apt-get install -y nginx
 rm -rf /etc/nginx/sites-available/ghost.conf
 rm -rf /etc/nginx/sites-enabled/ghost.conf
-echo 'server {' >> /etc/nginx/sites-available/ghost.conf
-echo '    listen 80;' >> /etc/nginx/sites-available/ghost.conf
-echo '    server_name '$URL';' >> /etc/nginx/sites-available/ghost.conf
-echo '' >> /etc/nginx/sites-available/ghost.conf
-echo '    location ~ ^/.well-known {' >> /etc/nginx/sites-available/ghost.conf
-echo '        root /var/www/ghost;' >> /etc/nginx/sites-available/ghost.conf
-echo '    }' >> /etc/nginx/sites-available/ghost.conf
-echo '' >> /etc/nginx/sites-available/ghost.conf
-echo '    location / {' >> /etc/nginx/sites-available/ghost.conf
-echo '        return 301 https://$server_name$request_uri;' >> /etc/nginx/sites-available/ghost.conf
-echo '    }' >> /etc/nginx/sites-available/ghost.conf
-echo '}' >> /etc/nginx/sites-available/ghost.conf
+
+cat > /etc/nginx/sites-available/ghost.conf <<EOL
+server {
+    listen 80;
+    server_name '$URL' www.'$URL';
+    location ~ ^/.well-known {
+        root /var/www/ghost;
+    }
+    location / {
+        return 301 https://'$URL'request_uri;
+    }
+}
+EOL
 ln -s /etc/nginx/sites-available/ghost.conf /etc/nginx/sites-enabled/ghost.conf
 service nginx restart
 
@@ -95,37 +96,36 @@ cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 
 # add ssl config to nginx
 
-echo '' >> /etc/nginx/sites-available/ghost.conf
-echo ' server {' >> /etc/nginx/sites-available/ghost.conf
-echo '     listen 443 ssl;' >> /etc/nginx/sites-available/ghost.conf
-echo '     server_name '$URL';' >> /etc/nginx/sites-available/ghost.conf
-echo '' >> /etc/nginx/sites-available/ghost.conf
-echo '     root /var/www/ghost;' >> /etc/nginx/sites-available/ghost.conf
-echo '     index index.html index.htm;' >> /etc/nginx/sites-available/ghost.conf
-echo '' >> /etc/nginx/sites-available/ghost.conf
-echo '     location / {' >> /etc/nginx/sites-available/ghost.conf
-echo '         proxy_pass http://localhost:2368;' >> /etc/nginx/sites-available/ghost.conf
-echo '         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;' >> /etc/nginx/sites-available/ghost.conf
-echo '         proxy_set_header Host $http_host;' >> /etc/nginx/sites-available/ghost.conf
-echo '         proxy_set_header X-Forwarded-Proto $scheme;' >> /etc/nginx/sites-available/ghost.conf
-echo '         proxy_buffering off;' >> /etc/nginx/sites-available/ghost.conf
-echo '     }' >> /etc/nginx/sites-available/ghost.conf
-echo '' >> /etc/nginx/sites-available/ghost.conf
-echo '     ssl on;' >> /etc/nginx/sites-available/ghost.conf
-echo '     ssl_certificate /etc/letsencrypt/live/'$URL'/fullchain.pem;' >> /etc/nginx/sites-available/ghost.conf
-echo '     ssl_certificate_key /etc/letsencrypt/live/'$URL'/privkey.pem;' >> /etc/nginx/sites-available/ghost.conf
-echo '     ssl_prefer_server_ciphers On;' >> /etc/nginx/sites-available/ghost.conf
-echo '     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;' >> /etc/nginx/sites-available/ghost.conf
-echo '     ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;' >> /etc/nginx/sites-available/ghost.conf
-echo '' >> /etc/nginx/sites-available/ghost.conf
-echo '     location ~ ^/(sitemap.xml|robots.txt) {' >> /etc/nginx/sites-available/ghost.conf
-echo '         root /var/www/ghost/public;' >> /etc/nginx/sites-available/ghost.conf
-echo '     }' >> /etc/nginx/sites-available/ghost.conf
-echo '' >> /etc/nginx/sites-available/ghost.conf
-echo '     location ~ ^/.well-known {' >> /etc/nginx/sites-available/ghost.conf
-echo '         root /var/www/ghost;' >> /etc/nginx/sites-available/ghost.conf
-echo '     }' >> /etc/nginx/sites-available/ghost.conf
-echo ' }' >> /etc/nginx/sites-available/ghost.conf
+cat > /etc/nginx/sites-available/ghost.conf <<EOL
+server {
+    listen 443 ssl;
+    server_name '$URL';
+    
+    root /var/www/ghost;
+    index index.html index.htm;
+    client_max_body_size 10G;
+    
+    location / {
+        proxy_pass http://localhost:2368;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
+     }
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/'$URL'/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/'$URL'/privkey.pem;
+    ssl_prefer_server_ciphers On;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
+    location ~ ^/(sitemap.xml|robots.txt) {
+        root /var/www/ghost/public;
+    }
+    location ~ ^/.well-known {
+        root /var/www/ghost;
+    }
+}
+EOL
 
 # restart your nginx
 
