@@ -79,7 +79,7 @@ server {
         root /var/www/ghost;
     }
     location / {
-        return 301 https://${URL}$request_uri;
+        return 301 https://${URL}/$request_uri;
     }
 }
 EOF
