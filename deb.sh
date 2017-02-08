@@ -71,7 +71,7 @@ apt-get install -y nginx
 rm -rf /etc/nginx/sites-available/ghost.conf
 rm -rf /etc/nginx/sites-enabled/ghost.conf
 
-cat > /etc/nginx/sites-available/ghost.conf <<EOL
+cat > /etc/nginx/sites-available/ghost.conf <<EOF
 server {
     listen 80;
     server_name ${URL} www.${URL};
@@ -82,7 +82,7 @@ server {
         return 301 https://${URL}$request_uri;
     }
 }
-EOL
+EOF
 ln -s /etc/nginx/sites-available/ghost.conf /etc/nginx/sites-enabled/ghost.conf
 service nginx restart
 
@@ -90,11 +90,11 @@ service nginx restart
 
 cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 
-/opt/certbot-auto certonly --no-eff-email --webroot -w /var/www/ghost -d "$URL"
+/opt/certbot-auto certonly --webroot -w /var/www/ghost -d "$URL"
 
 # add ssl into nginx config file
 
-cat >> /etc/nginx/sites-available/ghost.conf <<EOL
+cat >> /etc/nginx/sites-available/ghost.conf <<EOF
 server {
     listen 443 ssl;
     server_name ${URL};
@@ -123,7 +123,7 @@ server {
         root /var/www/ghost;
     }
 }
-EOL
+EOF
 
 # restart your nginx
 
@@ -131,7 +131,9 @@ service nginx restart
 
 # add a crontab job
 
-echo '0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade' >> /var/spool/cron/crontabs/root
+cat >> /var/spool/cron/crontabs/root <<EOF
+0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade --pre-hook "service nginx stop" --post-hook "service nginx start"
+EOF
 
 clear
 
