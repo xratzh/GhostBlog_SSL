@@ -73,7 +73,7 @@ chkconfig nginx on
 
 cd /etc/nginx/conf.d/
 rm -rf *
-cat > /etc/nginx/conf.d/ghost.conf <<EOL
+cat > /etc/nginx/conf.d/ghost.conf <<EOF
 server {
     listen 80;
     server_name '$URL';
@@ -86,7 +86,7 @@ server {
         return 301 https://'$URL'request_uri;
     }
 }
-EOL
+EOF
 
 service nginx restart
 
@@ -99,7 +99,7 @@ cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 # add ssl into nginx config file
 
 
-cat >> /etc/nginx/conf.d/ghost.conf <<EOL
+cat >> /etc/nginx/conf.d/ghost.conf <<EOF
 server {
     listen 443 ssl;
     server_name '$URL';
@@ -131,7 +131,7 @@ server {
         root /var/www/ghost;
     }
 }
-EOL
+EOF
 
 # restart your nginx and ghost
 
