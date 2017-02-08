@@ -27,7 +27,7 @@ rm -rf /usr/bin/node
 yum autoremove -y nodejs
 curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 yum install -y nodejs
-
+ln -s /usr/bin/node /usr/bin/nodejs
 #Download GhostBlog
 
 mkdir /var/www
@@ -76,14 +76,12 @@ rm -rf *
 cat > /etc/nginx/conf.d/ghost.conf <<EOF
 server {
     listen 80;
-    server_name '$URL';
-
+    server_name ${URL} www.${URL};
     location ~ ^/.well-known {
         root /var/www/ghost;
     }
-
     location / {
-        return 301 https://'$URL'request_uri;
+        return 301 https://${URL}$request_uri;
     }
 }
 EOF
@@ -102,7 +100,7 @@ cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 cat >> /etc/nginx/conf.d/ghost.conf <<EOF
 server {
     listen 443 ssl;
-    server_name '$URL';
+    server_name ${URL};
     
     root /var/www/ghost;
     index index.html index.htm;
@@ -115,18 +113,15 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_buffering off;
      }
-
     ssl on;
-    ssl_certificate /etc/letsencrypt/live/'$URL'/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/'$URL'/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/${URL}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${URL}/privkey.pem;
     ssl_prefer_server_ciphers On;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
-
     location ~ ^/(sitemap.xml|robots.txt) {
         root /var/www/ghost/public;
     }
-
     location ~ ^/.well-known {
         root /var/www/ghost;
     }
