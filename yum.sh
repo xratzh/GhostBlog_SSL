@@ -76,7 +76,7 @@ rm -rf *
 cat > /etc/nginx/conf.d/ghost.conf <<EOL
 server {
     listen 80;
-    server_name '$URL' www.'$URL';
+    server_name '$URL';
 
     location ~ ^/.well-known {
         root /var/www/ghost;
@@ -99,7 +99,7 @@ cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 # add ssl into nginx config file
 
 
-cat > /etc/nginx/conf.d/ghost.conf <<EOL
+cat >> /etc/nginx/conf.d/ghost.conf <<EOL
 server {
     listen 443 ssl;
     server_name '$URL';
