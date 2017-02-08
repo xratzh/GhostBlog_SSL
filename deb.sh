@@ -41,7 +41,7 @@ chmod 755 /var/www/ghost
 #install GhostBlog
 
 cd /var/www/ghost
-npm install
+npm install --production
 mv config.example.js config.js
 
 echo "sed -i 's/my-ghost-blog.com/"$URL"/g' config.js" > setconfig.sh
