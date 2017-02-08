@@ -74,18 +74,20 @@ chkconfig nginx on
 
 cd /etc/nginx/conf.d/
 rm -rf *
-echo 'server {' >> /etc/nginx/conf.d/ghost.conf
-echo '    listen 80;' >> /etc/nginx/conf.d/ghost.conf
-echo '    server_name '$URL';' >> /etc/nginx/conf.d/ghost.conf
-echo '' >> /etc/nginx/conf.d/ghost.conf
-echo '    location ~ ^/.well-known {' >> /etc/nginx/conf.d/ghost.conf
-echo '        root /var/www/ghost;' >> /etc/nginx/conf.d/ghost.conf
-echo '    }' >> /etc/nginx/conf.d/ghost.conf
-echo '' >> /etc/nginx/conf.d/ghost.conf
-echo '    location / {' >> /etc/nginx/conf.d/ghost.conf
-echo '        return 301 https://$server_name$request_uri;' >> /etc/nginx/conf.d/ghost.conf
-echo '    }' >> /etc/nginx/conf.d/ghost.conf
-echo '}' >> /etc/nginx/conf.d/ghost.conf
+cat > /etc/nginx/conf.d/ghost.conf <<EOL
+server {
+    listen 80;
+    server_name '$URL' www.'$URL';
+
+    location ~ ^/.well-known {
+        root /var/www/ghost;
+    }
+
+    location / {
+        return 301 https://'$URL'request_uri;
+    }
+}
+EOL
 
 service nginx restart
 
@@ -97,38 +99,40 @@ cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 
 # add ssl config to nginx
 
-echo '' >> /etc/nginx/conf.d/ghost.conf
-echo ' server {' >> /etc/nginx/conf.d/ghost.conf
-echo '     listen 443 ssl;' >> /etc/nginx/conf.d/ghost.conf
-echo '     server_name '$URL';' >> /etc/nginx/conf.d/ghost.conf
-echo '' >> /etc/nginx/conf.d/ghost.conf
-echo '     root /var/www/ghost;' >> /etc/nginx/conf.d/ghost.conf
-echo '     index index.html index.htm;' >> /etc/nginx/conf.d/ghost.conf
-echo '     client_max_body_size 10G;' >> /etc/nginx/conf.d/ghost.conf
-echo '' >> /etc/nginx/conf.d/ghost.conf
-echo '     location / {' >> /etc/nginx/conf.d/ghost.conf
-echo '         proxy_pass http://localhost:2368;' >> /etc/nginx/conf.d/ghost.conf
-echo '         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;' >> /etc/nginx/conf.d/ghost.conf
-echo '         proxy_set_header Host $http_host;' >> /etc/nginx/conf.d/ghost.conf
-echo '         proxy_set_header X-Forwarded-Proto $scheme;' >> /etc/nginx/conf.d/ghost.conf
-echo '         proxy_buffering off;' >> /etc/nginx/conf.d/ghost.conf
-echo '     }' >> /etc/nginx/conf.d/ghost.conf
-echo '' >> /etc/nginx/conf.d/ghost.conf
-echo '     ssl on;' >> /etc/nginx/conf.d/ghost.conf
-echo '     ssl_certificate /etc/letsencrypt/live/'$URL'/fullchain.pem;' >> /etc/nginx/conf.d/ghost.conf
-echo '     ssl_certificate_key /etc/letsencrypt/live/'$URL'/privkey.pem;' >> /etc/nginx/conf.d/ghost.conf
-echo '     ssl_prefer_server_ciphers On;' >> /etc/nginx/conf.d/ghost.conf
-echo '     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;' >> /etc/nginx/conf.d/ghost.conf
-echo '     ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;' >> /etc/nginx/conf.d/ghost.conf
-echo '' >> /etc/nginx/conf.d/ghost.conf
-echo '     location ~ ^/(sitemap.xml|robots.txt) {' >> /etc/nginx/conf.d/ghost.conf
-echo '         root /var/www/ghost/public;' >> /etc/nginx/conf.d/ghost.conf
-echo '     }' >> /etc/nginx/conf.d/ghost.conf
-echo '' >> /etc/nginx/conf.d/ghost.conf
-echo '     location ~ ^/.well-known {' >> /etc/nginx/conf.d/ghost.conf
-echo '         root /var/www/ghost;' >> /etc/nginx/conf.d/ghost.conf
-echo '     }' >> /etc/nginx/conf.d/ghost.conf
-echo ' }' >> /etc/nginx/conf.d/ghost.conf
+
+cat > /etc/nginx/conf.d/ghost.conf <<EOL
+server {
+    listen 443 ssl;
+    server_name sieben.win;
+    
+    root /var/www/ghost;
+    index index.html index.htm;
+    client_max_body_size 10G;
+    
+    location / {
+        proxy_pass http://localhost:2368;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
+     }
+
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/'$URL'/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/'$URL'/privkey.pem;
+    ssl_prefer_server_ciphers On;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
+
+    location ~ ^/(sitemap.xml|robots.txt) {
+        root /var/www/ghost/public;
+    }
+
+    location ~ ^/.well-known {
+        root /var/www/ghost;
+    }
+}
+EOL
 
 # restart your nginx and ghost
 
@@ -145,5 +149,9 @@ echo " "
 echo "####################################################################"
 echo "#                     Thanks agnain  ^_^                           #"
 echo "#         Your SSL will update on the 1st in every 2 months        #"
-echo "#                                                                  #"
 echo "####################################################################"
+echo ""
+echo " >>> Your blog : https://"$URL
+echo " >>> All GhostBlog files install in : /var/www/ghost"
+echo " >>> Database : /var/www/ghost/content/data/#ghost-dev.db"
+echo " >>> Nodejs : "`node -v`"    npm : "`npm -v`
