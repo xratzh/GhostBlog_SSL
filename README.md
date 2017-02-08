@@ -1,4 +1,4 @@
-*A script to install ghost blog with ssl*
+##A script to install ghost blog with ssl
 ------
 
 ```
@@ -11,7 +11,7 @@ sudo sh GbS.sh
 
 
 
-*Or you can do it yourself with these*  
+##Or you can do it yourself with these
 
 For "apt" get-package based
 ```
