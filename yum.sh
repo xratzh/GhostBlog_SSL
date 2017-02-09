@@ -70,14 +70,12 @@ yum install -y watchdog
 
 yum install -y nginx
 
-chkconfig nginx on
-
 cd /etc/nginx/conf.d/
 rm -rf *
 cat > /etc/nginx/conf.d/ghost.conf <<EOF
 server {
     listen 80;
-    server_name ${URL};
+    server_name ${URL} www.${URL};
     location ~ ^/.well-known {
         root /var/www/ghost;
     }
@@ -88,6 +86,9 @@ server {
 EOF
 
 service nginx restart
+
+chkconfig nginx on
+systemctl enable nginx.service
 
 # letsencryt
 
@@ -110,7 +111,7 @@ server {
     location / {
         proxy_pass http://localhost:2368;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
+        proxy_set_header Host \$http_host;
         proxy_set_header X-Forwarded-Proto \$scheme;
         proxy_buffering off;
      }
