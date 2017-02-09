@@ -61,7 +61,8 @@ forever start /var/www/ghost/index.js
 sed -i '/forever start \/var\/www\/ghost\/index.js/d' /etc/rc.d/rc.local
 sed -i '/exit 0/d' /etc/rc.d/rc.local
 echo "forever start /var/www/ghost/index.js" >> /etc/rc.d/rc.local
-echo "exit 0" >> /etc/rc.d/rc.local
+echo "sleep 10" >> /etc/rc.d/rc.local
+echo "service nginx restart" >> /etc/rc.d/rc.local
 echo "exit 0" >> /etc/rc.d/rc.local
 chmod +x /etc/rc.d/rc.local
 
