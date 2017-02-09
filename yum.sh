@@ -25,7 +25,7 @@ yum install -y curl unzip
 
 rm -rf /usr/bin/node
 yum autoremove -y nodejs
-curl -sL https://rpm.nodesource.com/setup_6.x | bash -
+curl -sL https://rpm.nodesource.com/setup_7.x | bash -
 yum install -y nodejs
 ln -s /usr/bin/node /usr/bin/nodejs
 #Download GhostBlog
@@ -81,7 +81,7 @@ server {
         root /var/www/ghost;
     }
     location / {
-        return 301 https://$server_name$request_uri;
+        return 301 https://${URL}\$request_uri;
     }
 }
 EOF
@@ -108,9 +108,9 @@ server {
     
     location / {
         proxy_pass http://localhost:2368;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Proto \$scheme;
         proxy_buffering off;
      }
     ssl on;
