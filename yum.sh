@@ -76,16 +76,16 @@ rm -rf *
 cat > /etc/nginx/conf.d/ghost.conf <<EOF
 server {
     listen 80;
-    server_name ${URL} www.${URL};
+    server_name ${URL};
     location ~ ^/.well-known {
         root /var/www/ghost;
     }
     location / {
-        return 301 https://${URL}$request_uri;
+        return 301 https://$server_name$request_uri;
     }
 }
 EOF
-
+ln -s /etc/nginx/conf.d/ghost.conf /etc/nginx/default/ghost.conf
 service nginx restart
 
 # letsencryt
@@ -116,7 +116,7 @@ server {
     ssl on;
     ssl_certificate /etc/letsencrypt/live/${URL}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${URL}/privkey.pem;
-    ssl_prefer_server_ciphers On;
+    ssl_prefer_server_ciphers on;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
     location ~ ^/(sitemap.xml|robots.txt) {
