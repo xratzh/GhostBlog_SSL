@@ -85,7 +85,7 @@ server {
     }
 }
 EOF
-ln -s /etc/nginx/conf.d/ghost.conf /etc/nginx/default/ghost.conf
+
 service nginx restart
 
 # letsencryt
@@ -130,8 +130,9 @@ EOF
 
 # restart your nginx and ghost
 
-service nginx restart
 pm2 restart ghost
+
+service nginx restart
 
 # add a crontab job
 
