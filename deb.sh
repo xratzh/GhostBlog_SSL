@@ -102,19 +102,20 @@ server {
     root /var/www/ghost;
     index index.html index.htm;
     client_max_body_size 10G;
+    
     location / {
         proxy_pass http://localhost:2368;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For   \$proxy_add_x_forwarded_for;
+        proxy_set_header Host              \$http_host;
+        proxy_set_header X-Forwarded-Proto \$scheme;
         proxy_buffering off;
     }
     ssl on;
     ssl_certificate /etc/letsencrypt/live/${URL}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${URL}/privkey.pem;
-    ssl_prefer_server_ciphers On;
+    ssl_prefer_server_ciphers on;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:HIGH:MEDIUM:!MD5:!aNULL:!EDH:!RC4:!DSS;
+    ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
     location ~ ^/(sitemap.xml|robots.txt) {
         root /var/www/ghost/public;
     }
