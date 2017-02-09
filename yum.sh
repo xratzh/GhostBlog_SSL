@@ -52,15 +52,16 @@ rm -rf setconfig.sh
 sed -i 's/data\/ghost/data\/#ghost/g' config.js
 rm -rf /var/www/ghost/content/data/*.db
 
-# install pm2 keep Ghost online
-cd /var/www/ghost/
+# install forever keep Ghost online
 
-npm install pm2 -g
-
-NODE_ENV=production pm2 start index.js --name "ghost"
-
-pm2 startup centos
-pm2 save
+npm install forever -g
+forever stopall
+forever start /var/www/ghost/index.js
+sed -i '/forever start \/var\/www\/ghost\/index.js/d' /etc/rc.d/rc.local
+sed -i '/exit 0/d' /etc/rc.d/rc.local
+echo "forever start /var/www/ghost/index.js" >> /etc/rc.d/rc.local
+echo "exit 0" >> /etc/rc.d/rc.local
+chmod +x /etc/rc.d/rc.local
 
 # install watchdog make sure vps always alive
 
@@ -87,7 +88,6 @@ EOF
 
 service nginx restart
 
-chkconfig nginx on
 systemctl enable nginx.service
 
 # letsencryt
@@ -110,8 +110,8 @@ server {
     
     location / {
         proxy_pass http://localhost:2368;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header Host \$http_host;
+        proxy_set_header X-Forwarded-For   \$proxy_add_x_forwarded_for;
+        proxy_set_header Host              \$http_host;
         proxy_set_header X-Forwarded-Proto \$scheme;
         proxy_buffering off;
      }
@@ -130,9 +130,7 @@ server {
 }
 EOF
 
-# restart your nginx and ghost
-
-pm2 restart ghost
+# restart your nginx
 
 service nginx restart
 
