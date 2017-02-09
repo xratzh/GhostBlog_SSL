@@ -19,16 +19,17 @@ read -p "   http://" URL
 # yum update and install epel-release curl and unzip
 
 yum update -y
-yum install -y epel-release
-yum install -y curl unzip
+yum install epel-release -y
+yum install curl unzip -y
 
 # rm old nodejs install the new edition
 
 rm -rf /usr/bin/node
 yum autoremove -y nodejs
-curl -sL https://rpm.nodesource.com/setup_7.x | bash -
+curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 yum install -y nodejs
 ln -s /usr/bin/node /usr/bin/nodejs
+
 #Download GhostBlog
 
 mkdir /var/www
@@ -61,6 +62,7 @@ sed -i '/forever start \/var\/www\/ghost\/index.js/d' /etc/rc.d/rc.local
 sed -i '/exit 0/d' /etc/rc.d/rc.local
 echo "forever start /var/www/ghost/index.js" >> /etc/rc.d/rc.local
 echo "exit 0" >> /etc/rc.d/rc.local
+echo "exit 0" >> /etc/rc.d/rc.local
 chmod +x /etc/rc.d/rc.local
 
 # install watchdog make sure vps always alive
@@ -88,8 +90,6 @@ EOF
 
 service nginx restart
 
-systemctl enable nginx.service
-
 # letsencryt
 
 cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
@@ -114,7 +114,7 @@ server {
         proxy_set_header Host              \$http_host;
         proxy_set_header X-Forwarded-Proto \$scheme;
         proxy_buffering off;
-     }
+    }
     ssl on;
     ssl_certificate /etc/letsencrypt/live/${URL}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${URL}/privkey.pem;
@@ -136,7 +136,9 @@ service nginx restart
 
 # add a crontab job
 
-echo '0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade' >> /var/spool/cron/root
+cat >> /var/spool/cron/root <<EOF
+0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade --pre-hook "service nginx stop" --post-hook "service nginx start"
+EOF
 
 clear
 
