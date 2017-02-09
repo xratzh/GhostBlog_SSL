@@ -79,7 +79,7 @@ server {
         root /var/www/ghost;
     }
     location / {
-        return 301 https://'$URL'request_uri;
+        return 301 https://${URL}\$request_uri;
     }
 }
 EOF
@@ -114,8 +114,8 @@ server {
     ssl_certificate /etc/letsencrypt/live/${URL}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${URL}/privkey.pem;
     ssl_prefer_server_ciphers On;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:HIGH:MEDIUM:!MD5:!aNULL:!EDH:!RC4:!DSS;
     location ~ ^/(sitemap.xml|robots.txt) {
         root /var/www/ghost/public;
     }
