@@ -19,13 +19,13 @@ read -p "   http://" URL
 # apt-get update and install curl unzip
 
 apt-get update -y
-apt-get install -y curl unzip sudo
+apt-get install curl unzip sudo -y
 
 # rm old nodejs install a new edition
 
 rm -rf /usr/bin/node
 apt-get autoremove -y nodejs
-curl --silent --location https://deb.nodesource.com/setup_7.x | sudo bash -
+curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
 apt-get install -y nodejs
 
 #Download GhostBlog
