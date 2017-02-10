@@ -36,7 +36,7 @@ sudo sh yum.sh
 ##Tips  
 
 * In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" when reboot(3 seconds later to restart nginx service).  
-* "ghost.conf" in /etc/nginx/ rewrite www.yourdomain.com to yourdomain.com
+* "ghost.conf" in /etc/nginx/ rewrite "www.yourdomain.com" to "yourdomain.com”
 ```
 server {
     listen 80
