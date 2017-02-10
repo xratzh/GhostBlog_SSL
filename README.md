@@ -28,15 +28,15 @@ sudo sh yum.sh
 ```  
 
 ------
-1. Enter your domain
+1. Enter your domain(`no-www`,or you need to edit ghost.conf)
 2. Choose 'Y'
 3. Enter your email address  
 
 ------  
 ##Tips  
 
-* In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" in CentOs7 after reboot(3 seconds later to restart nginx service).The number can be changed,but don`t less than 2 seconds.  
-* "ghost.conf" in /etc/nginx/ rewrite "www.yourdomain.com" to "yourdomain.com”
+* In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" in CentOs7 after reboot(3 seconds later to restart nginx service).The number can be changed,but don`t less than 2 seconds.It seems necessary for CentOS7,no matter with CentOS6 and etc. 
+* "ghost.conf" in /etc/nginx/ rewrite `www.yourdomain.com` to `yourdomain.com`,if you never need it,you can delete `www.${URL}`
 ```
 server {
     listen 80
@@ -49,7 +49,7 @@ server {
     }
 }
 ```
-* Certbot-auto will renew on the 1st every 2 months.(crontab job)  
+* Certbot-auto will renew your SSL on the 1st every 2 months.(crontab job)  
 
 ------
 ##MIT
