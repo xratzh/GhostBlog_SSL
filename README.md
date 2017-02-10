@@ -32,10 +32,10 @@ sudo sh yum.sh
 2. Choose 'Y'
 3. Enter your email address  
 
-
+------  
 ##Tips  
 
-* In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" when reboot(3 seconds later to restart nginx service).  
+* In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" when reboot(3 seconds later to restart nginx service)，the number can be changed,but don`t less than 2 seconds.  
 * "ghost.conf" in /etc/nginx/ rewrite "www.yourdomain.com" to "yourdomain.com”
 ```
 server {
