@@ -1,4 +1,4 @@
-##A script to install ghost blog with ssl
+##A script to install ghost blog with ssl automatically
 ------
 
 ```
@@ -11,7 +11,7 @@ sudo sh GbS.sh
 
 
 
-##Or you can do it yourself with these
+##Or you can do it yourself manually
 
 For "apt" get-package based
 ```
@@ -30,6 +30,22 @@ sudo sh yum.sh
 ------
 1. Enter your domain
 2. Choose 'Y'
-3. Enter your email address
- 
-Nothing else~ |
+3. Enter your email address  
+
+
+##Tips  
+
+* In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" when reboot(3 seconds later to restart nginx service).  
+* "ghost.conf" in /etc/nginx/ rewrite www.yourdomain.com to yourdomain.com
+```
+server {
+    listen 80
+    server_name ${URL} www.${URL};               #rewrite www.yourdomain.com to yourdomain.com
+    location ~ ^/.well-known {
+        root /var/www/ghost;
+    }
+    location / {
+        return 301 https://${URL}\$request_uri;
+    }
+}
+```
