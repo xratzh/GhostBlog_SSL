@@ -13,14 +13,14 @@ sudo sh GbS.sh
 
 ##Or you can do it yourself manually
 
-For "apt" get-package based
+* For "apt" get-package based
 ```
 wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/deb.sh  
 
 sudo sh deb.sh
 ```  
 
-For "yum" get-package based
+* For "yum" get-package based
 ```
 wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/yum.sh  
 
@@ -35,7 +35,7 @@ sudo sh yum.sh
 ------  
 ##Tips  
 
-* In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" when reboot(3 seconds later to restart nginx service)，the number can be changed,but don`t less than 2 seconds.  
+* In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" in CentOs7 after reboot(3 seconds later to restart nginx service).The number can be changed,but don`t less than 2 seconds.  
 * "ghost.conf" in /etc/nginx/ rewrite "www.yourdomain.com" to "yourdomain.com”
 ```
 server {
@@ -49,3 +49,7 @@ server {
     }
 }
 ```
+* Certbot-auto will renew on the 1st every 2 months.(crontab job)  
+
+------
+##MIT
