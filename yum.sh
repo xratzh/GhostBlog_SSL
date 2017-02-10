@@ -61,8 +61,8 @@ forever start /var/www/ghost/index.js
 sed -i '/forever start \/var\/www\/ghost\/index.js/d' /etc/rc.d/rc.local
 sed -i '/exit 0/d' /etc/rc.d/rc.local
 echo "forever start /var/www/ghost/index.js" >> /etc/rc.d/rc.local
-echo "sleep 10" >> /etc/rc.d/rc.local
-echo "service nginx restart" >> /etc/rc.d/rc.local
+echo "sleep 10" >> /etc/rc.d/rc.local                  # Restarting nginx in 10 seconds after reboot
+echo "service nginx restart" >> /etc/rc.d/rc.local     #to fix the "502 bad gateway" of nginx in CentOS7
 echo "exit 0" >> /etc/rc.d/rc.local
 chmod +x /etc/rc.d/rc.local
 
@@ -79,7 +79,7 @@ rm -rf *
 cat > /etc/nginx/conf.d/ghost.conf <<EOF
 server {
     listen 80;
-    server_name ${URL} www.${URL};
+    server_name ${URL} www.${URL};               #rewrite www.yourdomain.com to yourdomain.com
     location ~ ^/.well-known {
         root /var/www/ghost;
     }
