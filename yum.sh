@@ -138,7 +138,7 @@ service nginx restart
 # add a crontab job
 
 cat >> /var/spool/cron/root <<EOF
-0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade --pre-hook "service nginx stop" --post-hook "service nginx start"
+0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade
 EOF
 
 clear
