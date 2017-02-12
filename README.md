@@ -49,5 +49,16 @@ server {
 ```  
 - Certbot-auto will renew your SSL on the 1st every 2 months.(crontab job)  
 
+---  
+##Packages  
+- curl
+- unzip
+- nodejs
+- forever（you can use pm2）
+- watchdog
+- nginx
+- certbot-auto
+
 ---
-##MIT
+##LICEN  
+MIT
