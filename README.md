@@ -27,7 +27,7 @@ sudo sh yum.sh
 
 ---
 1. Enter your domain(`no-www`,or you need to edit ghost.conf)
-2. Choose 'Y'
+2. Soon later,Choose 'Y'
 3. Enter your email address  
 
 ---  
@@ -54,11 +54,11 @@ server {
 - curl
 - unzip
 - nodejs
-- forever（you can use pm2）
+- forever（or you can use pm2）
 - watchdog
 - nginx
 - certbot-auto
 
 ---
-##LICEN  
+##LICENCE  
 MIT
