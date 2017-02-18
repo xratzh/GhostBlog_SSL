@@ -60,5 +60,5 @@ server {
 - certbot-auto
 
 ---
-##LICENCE  
+##LICENSE  
 MIT
