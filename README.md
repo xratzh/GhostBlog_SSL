@@ -31,6 +31,15 @@ sudo sh yum.sh
 3. Enter your email address  
 
 ---  
+
+##Upgrade
+
+```
+wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/update.sh  
+
+sudo sh update.sh
+```
+
 ##Tips  
 
 - In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" in CentOs7 after reboot(3 seconds later to restart nginx service).The number can be changed,but don`t less than 2 seconds.It seems necessary for CentOS7,no matter with CentOS6 and etc.  
@@ -61,4 +70,4 @@ server {
 
 ---
 ##LICENSE  
-MIT
+[MIT](https://github.com/xratzh/GhostBlog_SSL/blob/master/LICENSE)
