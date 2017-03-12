@@ -1,11 +1,14 @@
 #!/bin/bash
 
-cd /var/www/
+cd /var/www/ghost
+tar zcvf content.tar.gz content
+cp content.tar.gz ../
+cd .. && rm -rf ghost
 curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip
-unzip -uo ghost.zip -d ghostupdate
+unzip -uo ghost.zip -d ghost
 rm -rf ghost.zip
-chmod 755 /var/www/ghostupdate
-cp -f -R /var/www/ghostupdate/core /var/www/ghost/core
+chmod 755 /var/www/ghost
+rm -rf /var/www/ghost/content
 cd ghost
 npm install --production
-rm -rf /var/www/ghostupdate
+rm ../content.tar.gz
