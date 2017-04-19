@@ -42,8 +42,8 @@ sudo sh update.sh
 
 ##Tips  
 
-- In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" in CentOs7 after reboot(3 seconds later to restart nginx service).The number can be changed,but don`t less than 2 seconds.It seems necessary for CentOS7,no matter with CentOS6 and etc.  
-- "ghost.conf" in /etc/nginx/ rewrite `www.yourdomain.com` to `yourdomain.com`,if you never need it,you can delete `www.${URL}`
+- In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" in CentOs7 whoes RAM is less than 512MB after reboot(3 seconds later to restart nginx service).The number can be changed,but don`t less than 2 seconds.It seems necessary for CentOS7,no matter with CentOS6 and etc.  
+- "ghost.conf" in /etc/nginx/ rewrite `www.yourdomain.com` to `yourdomain.com`.If you never need it,you can delete `www.${URL}` in the yum.sh or deb.sh.
 ```
 server {
     listen 80
