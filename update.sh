@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "This will restart your nodejs services!"
+echo "This will restart your ghost/index.js services!"
 
 #stop nodejs with forever
 forever stop /var/www/ghost/index.js
