@@ -1,4 +1,4 @@
-##A script to install ghost blog with ssl automatically
+## A script to install ghost blog with ssl automatically
 ------
 
 ```
@@ -9,7 +9,7 @@ sudo sh GbS.sh
 ```
 ---  
 
-##You can do it yourself manually
+## You can do it yourself manually
 
 - For "apt" get-package based
 ```
@@ -32,7 +32,7 @@ sudo sh yum.sh
 
 ---  
 
-##Upgrade
+## Upgrade Ghost Version
 
 ```
 wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/update.sh  
@@ -40,10 +40,11 @@ wget https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/update.sh  
 sudo sh update.sh
 ```
 
-##Tips  
+## Tips  
 
-- In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" in CentOs7 whoes RAM is less than 512MB after reboot(3 seconds later to restart nginx service).The number can be changed,but don`t less than 2 seconds.It seems necessary for CentOS7,no matter with CentOS6 and etc.  
+- In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" in CentOs7 whoes RAM is less than 512MB after reboot(3 seconds later to restart nginx service).The number can be changed,but might not less than 2 seconds.It seems necessary for CentOS7,no matter with CentOS6 and etc.  
 - "ghost.conf" in /etc/nginx/ rewrite `www.yourdomain.com` to `yourdomain.com`.If you never need it,you can delete `www.${URL}` in the yum.sh or deb.sh.
+- In CentOS7,firewalld may should be changed to anable 80 port and 443 port
 ```
 server {
     listen 80
@@ -58,8 +59,8 @@ server {
 ```  
 - Certbot-auto will renew your SSL on the 1st every 2 months.(crontab job)  
 
----  
-##Packages  
+---
+## Packages  
 - curl
 - unzip
 - nodejs
@@ -69,5 +70,5 @@ server {
 - certbot-auto
 
 ---
-##LICENSE  
+## LICENSE  
 [MIT](https://github.com/xratzh/GhostBlog_SSL/blob/master/LICENSE)
