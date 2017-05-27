@@ -121,7 +121,8 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/${URL}/privkey.pem;
     ssl_prefer_server_ciphers on;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4:!DH:!DHE;
+    add_header Strict-Transport-Security max-age=15769000;
     location ~ ^/(sitemap.xml|robots.txt) {
         root /var/www/ghost/public;
     }
