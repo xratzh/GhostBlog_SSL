@@ -10,7 +10,7 @@ wget --no-check-certificate -O GbS.sh https://raw.githubusercontent.com/xratzh/G
 
 - For "apt" get-package based
 ```shell
-wget --no-check-certificate -O deb.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/deb.sh && chmod +x appex.sh && sudo bash deb.sh
+wget --no-check-certificate -O deb.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/deb.sh && chmod +x deb.sh && sudo bash deb.sh
 ```  
 
 - For "yum" get-package based
