@@ -1,6 +1,29 @@
 ## A script to install ghost blog with ssl automatically
 ------
 
+## Firewall settings
+- For "apt" get-package based (and centOS6)
+```shell
+service iptables start
+iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m udp -p udp --dport 80 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m udp -p udp --dport 443 -j ACCEPT
+service iptables restart
+apt-get install iptables-persistent -y
+```
+- For CentOS7
+```shell
+systemctl start firewalld.service
+systemctl enable firewalld.service
+firewall-cmd --zone=public --add-port=80/tcp --permanent  
+firewall-cmd --zone=public --add-port=80/udp --permanent  
+firewall-cmd --zone=public --add-port=443/tcp --permanent 
+firewall-cmd --zone=public --add-port=443/udp --permanent  
+firewall-cmd --reload 
+```
+
+##Usage
 ```shell
 wget --no-check-certificate -O GbS.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/GbS.sh && chmod +x GbS.sh && sudo bash GbS.sh
 ```
@@ -53,7 +76,7 @@ server {
 
 ---
 ## Packages  
-- iptables-persistent
+- iptables-persistent(ubuntu)
 - curl
 - unzip
 - nodejs
