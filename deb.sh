@@ -22,7 +22,6 @@ read -p "   http://" URL
 # apt-get update and install curl unzip
 apt-get update -y
 apt-get install curl unzip sudo -y
-sudo apt-get install iptables-persistent -y
 
 # remove old nodejs install a new edition
 
