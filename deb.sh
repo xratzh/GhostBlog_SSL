@@ -23,7 +23,6 @@ read -p "   http://" URL
 
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 80 -j ACCEPT
-iptables -I OUTPUT -m state --state NEW -m udp -p udp --dport 80 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 443 -j ACCEPT
 
@@ -31,6 +30,7 @@ iptables -I INPUT -m state --state NEW -m udp -p udp --dport 443 -j ACCEPT
 # apt-get update and install curl unzip
 apt-get update -y
 apt-get install curl unzip sudo -y
+sudo apt-get install iptables-persistent -y
 
 # remove old nodejs install a new edition
 
@@ -59,7 +59,7 @@ echo "sed -i 's/my-ghost-blog.com/"$URL"/g' config.js" > setconfig.sh
 echo "sed -i 's/localhost:2368/"$URL"/g' config.js" >> setconfig.sh
 sh setconfig.sh
 rm -rf setconfig.sh
-sed -i 's/data\/ghost/data\/#ghost/g' config.js
+sed -i 's/data\/ghost\/data\/#ghost/g' config.js
 rm -rf /var/www/ghost/content/data/*.db
 
 # install forever keep Ghost online
