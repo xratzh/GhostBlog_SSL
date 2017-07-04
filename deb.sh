@@ -19,14 +19,6 @@ echo ""
 echo " # Please input your Blog's domain : "
 read -p "   http://" URL
 
-# fillwall setting
-
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 80 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 443 -j ACCEPT
-
-
 # apt-get update and install curl unzip
 apt-get update -y
 apt-get install curl unzip sudo -y
