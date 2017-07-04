@@ -1,4 +1,6 @@
-#! /bin/sh
+#! /bin/bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
 
 clear
 # Begin
@@ -15,6 +17,76 @@ echo " >>> Need you run this script use sudo !                "
 echo ""
 echo " # Please input your Blog's domain : "
 read -p "   http://" URL
+
+# Get version
+getversion(){
+    if [[ -s /etc/redhat-release ]]; then
+        grep -oE  "[0-9.]+" /etc/redhat-release
+    else
+        grep -oE  "[0-9.]+" /etc/issue
+    fi
+}
+
+# CentOS version
+centosversion(){
+    if check_sys sysRelease centos; then
+        local code=$1
+        local version="$(getversion)"
+        local main_ver=${version%%.*}
+        if [ "$main_ver" == "$code" ]; then
+            return 0
+        else
+            return 1
+        fi
+    else
+        return 1
+    fi
+}
+
+#firewall settings
+firewall_set(){
+    echo "firewall set start..."
+    if centosversion 6; then
+        /etc/init.d/iptables status > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            iptables -L -n | grep -i ${shadowsocksport} > /dev/null 2>&1
+            if [ $? -ne 0 ]; then
+                iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+                iptables -I INPUT -m state --state NEW -m udp -p udp --dport 80 -j ACCEPT
+                iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
+                iptables -I INPUT -m state --state NEW -m udp -p udp --dport 443 -j ACCEPT
+                /etc/init.d/iptables save
+                /etc/init.d/iptables restart
+            else
+                echo "port ${shadowsocksport} has been set up."
+            fi
+        else
+            echo "WARNING: iptables looks like shutdown or not installed, please manually set it if necessary."
+        fi
+    elif centosversion 7; then
+        systemctl status firewalld > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            firewall-cmd --permanent --zone=public --add-port=80/tcp
+            firewall-cmd --permanent --zone=public --add-port=80/udp
+            firewall-cmd --permanent --zone=public --add-port=443/udp
+            firewall-cmd --permanent --zone=public --add-port=443/tcp
+            firewall-cmd --reload
+        else
+            echo "Firewalld looks like not running, try to start..."
+            systemctl start firewalld
+            if [ $? -eq 0 ]; then
+                firewall-cmd --permanent --zone=public --add-port=80/tcp
+                firewall-cmd --permanent --zone=public --add-port=80/udp
+                firewall-cmd --permanent --zone=public --add-port=443/udp
+                firewall-cmd --permanent --zone=public --add-port=443/tcp
+                firewall-cmd --reload
+            else
+                echo "WARNING: Try to start firewalld failed. please enable port 80、443 manually if necessary."
+            fi
+        fi
+    fi
+    echo "firewall set completed..."
+}
 
 # yum update and install epel-release curl and unzip
 
@@ -61,7 +133,7 @@ forever start /var/www/ghost/index.js
 sed -i '/forever start \/var\/www\/ghost\/index.js/d' /etc/rc.d/rc.local
 sed -i '/exit 0/d' /etc/rc.d/rc.local
 echo "forever start /var/www/ghost/index.js" >> /etc/rc.d/rc.local
-echo "sleep 3" >> /etc/rc.d/rc.local                   # Restarting nginx in 3 seconds after reboot
+echo "sleep 5" >> /etc/rc.d/rc.local                   # Restarting nginx in 3 seconds after reboot
 echo "service nginx restart" >> /etc/rc.d/rc.local     #to fix the "502 bad gateway" of nginx in CentOS7
 echo "exit 0" >> /etc/rc.d/rc.local
 chmod +x /etc/rc.d/rc.local
@@ -80,7 +152,7 @@ cat > /etc/nginx/conf.d/ghost.conf <<EOF
 server {
     listen 80;
     server_name ${URL} www.${URL};                     #rewrite www.yourdomain.com to yourdomain.com
-    location ~ ^/.well-known {
+    location ~ /.well-known {
         root /var/www/ghost;
     }
     location / {
@@ -126,7 +198,7 @@ server {
     location ~ ^/(sitemap.xml|robots.txt) {
         root /var/www/ghost/public;
     }
-    location ~ ^/.well-known {
+    location ~ /.well-known {
         root /var/www/ghost;
     }
 }
