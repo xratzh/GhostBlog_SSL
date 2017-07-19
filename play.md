@@ -1,5 +1,3 @@
-bandwagon经历
-
 这里就推荐现在瓦工最有性价比的18刀的kvm吧。推荐使用ubuntu，比较简单，版本推荐14.04或者16.04。
 
 主机购买可以走一波aff，[https://bwh1.net/aff.php?aff=14272&pid=43](https://bwh1.net/aff.php?aff=14272&pid=43)不喜欢的可以自己去掉，喜欢的当做支持吧。
@@ -20,9 +18,9 @@ bandwagon经历
 
 - 装Ghost博客
 
-  ```
-  https://github.com/xratzh/GhostBlog_SSL有一键安装脚本
-  ```
+```
+https://github.com/xratzh/GhostBlog_SSL有一键安装脚本
+```
 
 - 装锐速（lotserver）
 
