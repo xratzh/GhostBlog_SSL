@@ -2,7 +2,14 @@
 ------
 
 ## Firewall settings
-- For "apt" get-package based (and centOS6)
+- For Ubuntu(ufw)
+```shell
+apt install ufw
+ufw enable
+ufw allow 80 && ufw allow 443
+ufw reload
+```
+- For CentOS6(iptables)
 ```shell
 service iptables start
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
@@ -10,7 +17,6 @@ iptables -I INPUT -m state --state NEW -m udp -p udp --dport 80 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 443 -j ACCEPT
 service iptables restart
-apt-get install iptables-persistent -y
 ```
 - For CentOS7
 ```shell
@@ -51,8 +57,7 @@ wget --no-check-certificate -O yum.sh https://raw.githubusercontent.com/xratzh/G
 ## Upgrade Ghost Version
 
 ```shell
-wget --no-check-certificate -O update.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/update.sh  
-sudo bash update.sh
+wget --no-check-certificate -O update.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/update.sh && sudo bash update.sh
 ```
 
 ## Tips  
