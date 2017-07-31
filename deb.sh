@@ -35,7 +35,7 @@ apt-get install -y nodejs
 mkdir /var/www
 cd /var/www
 rm -rf ghost
-curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip
+curl -L https://github.com/TryGhost/Ghost/releases/download/0.11.11/Ghost-0.11.11.zip -o ghost.zip
 unzip -uo ghost.zip -d ghost
 rm -rf ghost.zip
 chmod 755 /var/www/ghost
