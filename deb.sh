@@ -46,8 +46,10 @@ cd /var/www/ghost
 npm install --production
 mv config.example.js config.js
 
-sed -i 's/my-ghost-blog.com/"$URL"/g' config.js
-sed -i 's/localhost:2368/"$URL"/g' config.js
+echo "sed -i 's/my-ghost-blog.com/"$URL"/g' config.js" > setconfig.sh
+echo "sed -i 's/localhost:2368/"$URL"/g' config.js" >> setconfig.sh
+sh setconfig.sh
+rm -rf setconfig.sh
 sed -i 's/data\/ghost\/data\/#ghost/g' config.js
 rm -rf /var/www/ghost/content/data/*.db
 
