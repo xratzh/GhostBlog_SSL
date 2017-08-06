@@ -146,5 +146,5 @@ echo "####################################################################"
 echo ""
 echo " >>> Your blog : https://"${URL}
 echo " >>> All GhostBlog files install in : /var/www/ghost"
-echo " >>> Database : /var/www/ghost/content/data/#ghost-dev.db"
+echo " >>> Database : /var/www/ghost/content/data/ghost-local.db"
 echo " >>> Nodejs : "`node -v`"    npm : "`npm -v`
