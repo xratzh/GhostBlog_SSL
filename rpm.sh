@@ -48,11 +48,8 @@ cd /var/www/ghost
 npm install --production
 mv config.example.js config.js
 
-echo "sed -i 's/my-ghost-blog.com/"$URL"/g' config.js" > setconfig.sh
-echo "sed -i 's/localhost:2368/"$URL"/g' config.js" >> setconfig.sh
-sh setconfig.sh
-rm -rf setconfig.sh
-sed -i 's/data\/ghost/data\/#ghost/g' config.js
+sed -i "s/my-ghost-blog.com/${URL}/g" config.js
+sed -i "s/localhost:2368/${URL}/g" config.js
 rm -rf /var/www/ghost/content/data/*.db
 
 # install forever keep Ghost online
@@ -154,5 +151,5 @@ echo "####################################################################"
 echo ""
 echo " >>> Your blog : https://"$URL
 echo " >>> All GhostBlog files install in : /var/www/ghost"
-echo " >>> Database : /var/www/ghost/content/data/#ghost-dev.db"
+echo " >>> Database : /var/www/ghost/content/data/ghost-dev.db"
 echo " >>> Nodejs : "`node -v`"    npm : "`npm -v`
