@@ -35,9 +35,10 @@ firewall-cmd --reload
 ```shell
 wget --no-check-certificate -O GbS.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/GbS.sh && chmod +x GbS.sh && sudo bash GbSplus.sh
 ```
-## Ussge of non-plus
+## Usage of non-plus
 ```shell
 wget --no-check-certificate -O GbS.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/GbS.sh && chmod +x GbS.sh && sudo bash GbS.sh
+```
 ---  
 
 ## You can do it yourself manually
@@ -73,6 +74,12 @@ wget --no-check-certificate -O yum.sh https://raw.githubusercontent.com/xratzh/G
 
 ## Upgrade Ghost Version
 
+### *plus
+```shell
+cd /var/www/ghost && ghost update
+```
+
+### non-plus
 ```shell
 wget --no-check-certificate -O update.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/update.sh && sudo bash update.sh
 ```
@@ -97,9 +104,21 @@ server {
 - Certbot-auto will renew your SSL on the 1st every 2 months.(crontab job)  
 
 ---
-## Packages  
+## Packages 
+
+### *plus
+- curl
+- sqlite3
+- unzip
+- nodejs
+- watchdog
+- nginx
+- certbot-auto
+
+### non-plus
 - iptables-persistent(ubuntu)
 - curl
+- sqlite3
 - unzip
 - nodejs
 - forever（or you can use pm2）
