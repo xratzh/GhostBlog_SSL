@@ -9,7 +9,7 @@ forever stop /var/www/ghost/index.js
 cd /var/www/ghost
 tar zcvf content.tar.gz content
 mv content.tar.gz ../
-mv config.js ../
+cd .. && rm -rf ghost
 mkdir ghost && cd ghost
 npm i -g ghost-cli
 
@@ -19,6 +19,7 @@ rm -rf /var/www/ghost/content
 mv ../content.tar.gz . && tar zxvf content.tar.gz && rm content.tar.gz
 
 #start nodejs and your Ghost blog
+
 ghost restart
 
 #update bootup settins
@@ -54,5 +55,5 @@ elif cat /proc/version | grep -Eqi "centos|red hat|redhat"; then
     echo "cd /var/www/ghost && ghost start" >> /etc/rc.d/rc.local
     echo "exit 0" >> /etc/rc.d/rc.local
     chmod +x /etc/rc.d/rc.local
-    
+fi
 echo "Your update has been done!Enjoy the latest version"
