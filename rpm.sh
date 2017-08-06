@@ -50,6 +50,7 @@ mv config.example.js config.js
 
 sed -i "s/my-ghost-blog.com/${URL}/g" config.js
 sed -i "s/localhost:2368/${URL}/g" config.js
+sed -i 's/data\/ghost/data\/ghost-local.db/g' config.js
 rm -rf /var/www/ghost/content/data/*.db
 
 # install forever keep Ghost online
@@ -97,7 +98,6 @@ cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 /opt/certbot-auto certonly --webroot -w /var/www/ghost -d "$URL"
 
 # add ssl into nginx config file
-
 
 cat >> /etc/nginx/conf.d/ghost.conf <<EOF
 server {
@@ -151,5 +151,5 @@ echo "####################################################################"
 echo ""
 echo " >>> Your blog : https://"$URL
 echo " >>> All GhostBlog files install in : /var/www/ghost"
-echo " >>> Database : /var/www/ghost/content/data/ghost-dev.db"
+echo " >>> Database : /var/www/ghost/content/data/ghost-local.db"
 echo " >>> Nodejs : "`node -v`"    npm : "`npm -v`
