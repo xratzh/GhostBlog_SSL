@@ -1,6 +1,8 @@
 ## A script to install ghost blog with ssl automatically
 ------
 
+# There are two editions of Ghost.*plus is the version over 1.0.0.And non-plus is the version bellow 1.0.0.
+
 ## Firewall settings
 - For Ubuntu(ufw)
 ```shell
@@ -9,7 +11,7 @@ ufw enable
 ufw allow 80 && ufw allow 443
 ufw reload
 ```
-- For CentOS6(iptables)
+- For CentOS6(iptables for ubuntu as the same)
 ```shell
 service iptables start
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
@@ -29,22 +31,37 @@ firewall-cmd --zone=public --add-port=443/udp --permanent
 firewall-cmd --reload 
 ```
 
-##Usage
+## Usage of *plus
+```shell
+wget --no-check-certificate -O GbS.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/GbS.sh && chmod +x GbS.sh && sudo bash GbSplus.sh
+```
+## Ussge of non-plus
 ```shell
 wget --no-check-certificate -O GbS.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/GbS.sh && chmod +x GbS.sh && sudo bash GbS.sh
-```
 ---  
 
 ## You can do it yourself manually
 
+### *plus edition
 - For "apt" get-package based
 ```shell
-wget --no-check-certificate -O deb.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/deb.sh && chmod +x deb.sh && sudo bash deb.sh
+wget --no-check-certificate -O deb.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/debplus.sh && sudo bash debplus.sh
 ```  
 
 - For "yum" get-package based
 ```shell
-wget --no-check-certificate -O yum.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/yum.sh && chmod +x yum.sh && sudo bash yum.sh
+wget --no-check-certificate -O yum.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/rpmplus.sh && sudo bash rpmplus.sh
+```  
+### non-plus edition
+
+- For "apt" get-package based
+```shell
+wget --no-check-certificate -O deb.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/deb.sh && sudo bash deb.sh
+```  
+
+- For "yum" get-package based
+```shell
+wget --no-check-certificate -O yum.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/rpm.sh && sudo bash rpm.sh
 ```  
 
 ---
