@@ -33,7 +33,7 @@ firewall-cmd --reload
 
 ## Usage of *plus
 ```shell
-wget --no-check-certificate -O GbS.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/GbS.sh && chmod +x GbS.sh && sudo bash GbSplus.sh
+wget --no-check-certificate -O GbSplus.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/GbSplus.sh && chmod +x GbSplus.sh && sudo bash GbSplus.sh
 ```
 ## Usage of non-plus
 ```shell
@@ -46,12 +46,12 @@ wget --no-check-certificate -O GbS.sh https://raw.githubusercontent.com/xratzh/G
 ### *plus edition
 - For "apt" get-package based
 ```shell
-wget --no-check-certificate -O deb.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/debplus.sh && sudo bash debplus.sh
+wget --no-check-certificate -O debplus.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/debplus.sh && sudo bash debplus.sh
 ```  
 
 - For "yum" get-package based
 ```shell
-wget --no-check-certificate -O yum.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/rpmplus.sh && sudo bash rpmplus.sh
+wget --no-check-certificate -O rpmplus.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/rpmplus.sh && sudo bash rpmplus.sh
 ```  
 ### non-plus edition
 
