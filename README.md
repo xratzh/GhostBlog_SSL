@@ -62,7 +62,7 @@ wget --no-check-certificate -O deb.sh https://raw.githubusercontent.com/xratzh/G
 
 - For "yum" get-package based
 ```shell
-wget --no-check-certificate -O yum.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/rpm.sh && sudo bash rpm.sh
+wget --no-check-certificate -O rpm.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/rpm.sh && sudo bash rpm.sh
 ```  
 
 ---
