@@ -38,6 +38,12 @@ cd ghost
 npm i -g ghost-cli
 ghost install local
 
+# config ghost
+
+ghost stop && mv config.development.json config.production.json
+sed -i "s/http:\/\/localhost:2368/https:\/\/{URL}/g" config.production.json
+ghost start
+
 # configure in bootup
 
 sed -i '/exit 0/d' /etc/rc.local
