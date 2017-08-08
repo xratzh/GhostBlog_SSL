@@ -1,9 +1,9 @@
 ## A script to install ghost blog with ssl automatically
 ------
 
-# There are two editions of Ghost.*plus is the version over 1.0.0.And non-plus is the version bellow 1.0.0.
+## There are two editions of Ghost.*plus is the version over 1.0.0.And non-plus is the version bellow 1.0.0.
 
-## Firewall settings
+#### Firewall settings
 - For Ubuntu(ufw)
 ```shell
 apt install ufw
@@ -31,19 +31,19 @@ firewall-cmd --zone=public --add-port=443/udp --permanent
 firewall-cmd --reload 
 ```
 
-## Usage of *plus
+#### Usage of *plus
 ```shell
 wget --no-check-certificate -O GbSplus.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/GbSplus.sh && chmod +x GbSplus.sh && sudo bash GbSplus.sh
 ```
-## Usage of non-plus
+#### Usage of non-plus
 ```shell
 wget --no-check-certificate -O GbS.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/GbS.sh && chmod +x GbS.sh && sudo bash GbS.sh
 ```
 ---  
 
-## You can do it yourself manually
+### You can do it yourself manually
 
-### *plus edition
+##### *plus edition
 - For "apt" get-package based
 ```shell
 wget --no-check-certificate -O debplus.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/debplus.sh && sudo bash debplus.sh
@@ -53,7 +53,7 @@ wget --no-check-certificate -O debplus.sh https://raw.githubusercontent.com/xrat
 ```shell
 wget --no-check-certificate -O rpmplus.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/rpmplus.sh && sudo bash rpmplus.sh
 ```  
-### non-plus edition
+##### non-plus edition
 
 - For "apt" get-package based
 ```shell
@@ -72,19 +72,23 @@ wget --no-check-certificate -O rpm.sh https://raw.githubusercontent.com/xratzh/G
 
 ---  
 
-## Upgrade Ghost Version
+#### Upgrade Ghost Version
 
-### *plus
+##### *plus
 ```shell
 cd /var/www/ghost && ghost update
 ```
 
-### non-plus
+##### non-plus update to 0.11.11
 ```shell
 wget --no-check-certificate -O update.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/update.sh && sudo bash update.sh
 ```
 
-## Tips  
+##### 0.11.11 update to 1.0.0 and later
+
+[Official migrating guide](https://docs.ghost.org/v0.11.11/docs/migrating-to-ghost-version-100)
+
+#### Tips  
 
 - In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" in CentOs7 whoes RAM is less than 512MB after reboot(3 seconds later to restart nginx service).The number can be changed,but might not less than 2 seconds.It seems necessary for CentOS7,no matter with CentOS6 and etc.  
 - "ghost.conf" in /etc/nginx/ rewrite `www.yourdomain.com` to `yourdomain.com`.If you never need it,you can delete `www.${URL}` in the yum.sh or deb.sh.
@@ -104,9 +108,9 @@ server {
 - Certbot-auto will renew your SSL on the 1st every 2 months.(crontab job)  
 
 ---
-## Packages 
+#### Packages 
 
-### *plus
+##### *plus
 - curl
 - sqlite3
 - unzip
@@ -115,7 +119,7 @@ server {
 - nginx
 - certbot-auto
 
-### non-plus
+##### non-plus
 - iptables-persistent(ubuntu)
 - curl
 - sqlite3
@@ -127,5 +131,5 @@ server {
 - certbot-auto
 
 ---
-## LICENSE  
+#### LICENSE  
 [MIT](https://github.com/xratzh/GhostBlog_SSL/blob/master/LICENSE)
