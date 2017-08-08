@@ -47,6 +47,7 @@ ghost start
 # configure in bootup
 
 sed -i '/exit 0/d' /etc/rc.local
+echo "service nginx start" >> /etc/rc.local
 echo "cd /var/www/ghost && ghost start" >> /etc/rc.local
 echo "exit 0" >> /etc/rc.local
 
