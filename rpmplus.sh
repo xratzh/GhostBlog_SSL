@@ -44,7 +44,7 @@ ghost install local
 # config ghost
 
 ghost stop && mv config.development.json config.production.json
-sed -i "s/http:\/\/localhost:2368/https:\/\/{URL}/g" config.production.json
+sed -i "s/http:\/\/localhost:2368/https:\/\/${URL}/g" config.production.json
 ghost start
 
 # configure in bootup
