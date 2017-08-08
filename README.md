@@ -4,14 +4,24 @@
 ## There are two editions of Ghost.*plus is the version over 1.0.0.And non-plus is the version bellow 1.0.0.
 
 #### Firewall settings
-- For Ubuntu(ufw)
+#### ufw
+- For Ubuntu/Debian
 ```shell
 apt install ufw
 ufw enable
 ufw allow 80 && ufw allow 443
 ufw reload
 ```
-- For CentOS6(iptables for ubuntu as the same)
+- For CentOS(ufw)
+```shell
+yum install -y ufw
+ufw enable
+ufw allow 80 && ufw allow 443
+ufw reload
+```
+---
+#### Or ipables/fillwlld
+- For CentOS6(iptables for ubuntu/debian as the same)
 ```shell
 service iptables start
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
@@ -30,6 +40,7 @@ firewall-cmd --zone=public --add-port=443/tcp --permanent
 firewall-cmd --zone=public --add-port=443/udp --permanent  
 firewall-cmd --reload 
 ```
+### Usage
 
 #### Usage of *plus
 ```shell
@@ -39,6 +50,9 @@ wget --no-check-certificate -O GbSplus.sh https://raw.githubusercontent.com/xrat
 ```shell
 wget --no-check-certificate -O GbS.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/GbS.sh && chmod +x GbS.sh && sudo bash GbS.sh
 ```
+ 1. Enter your domain(`no-www`,or you need to edit ghost.conf)
+ 2. Soon later,Choose 'Y'
+ 3. Enter your email address  
 ---  
 
 ### You can do it yourself manually
@@ -65,16 +79,9 @@ wget --no-check-certificate -O deb.sh https://raw.githubusercontent.com/xratzh/G
 wget --no-check-certificate -O rpm.sh https://raw.githubusercontent.com/xratzh/GhostBlog_SSL/master/rpm.sh && sudo bash rpm.sh
 ```  
 
----
-1. Enter your domain(`no-www`,or you need to edit ghost.conf)
-2. Soon later,Choose 'Y'
-3. Enter your email address  
-
----  
-
 #### Upgrade Ghost Version
 
-##### *plus
+##### *plus update
 ```shell
 cd /var/www/ghost && ghost update
 ```
@@ -90,7 +97,7 @@ wget --no-check-certificate -O update.sh https://raw.githubusercontent.com/xratz
 
 #### Tips  
 
-- In yum.sh,"sleep 3" in /etc/rc.d/rc.local is to fix "502 bad gateway" in CentOs7 whoes RAM is less than 512MB after reboot(3 seconds later to restart nginx service).The number can be changed,but might not less than 2 seconds.It seems necessary for CentOS7,no matter with CentOS6 and etc.  
+- In rpm.sh,"sleep 5" in /etc/rc.d/rc.local is to fix "502 bad gateway" in CentOs7 whoes RAM is less than 512MB after reboot(5 seconds later to restart nginx service).The number can be changed,but might not less than 2 seconds.It seems necessary for CentOS7,no matter with CentOS6 and etc.  
 - "ghost.conf" in /etc/nginx/ rewrite `www.yourdomain.com` to `yourdomain.com`.If you never need it,you can delete `www.${URL}` in the yum.sh or deb.sh.
 - In CentOS7,firewalld may should be changed to anable 80 port and 443 port
 ```shell
