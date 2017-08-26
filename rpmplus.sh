@@ -27,7 +27,6 @@ yum install curl unzip -y
 
 # remove old nodejs install the new edition
 
-rm -rf /usr/bin/node
 yum autoremove -y nodejs
 curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 yum install -y nodejs
