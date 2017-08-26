@@ -26,6 +26,7 @@ apt-get install curl unzip sudo -y
 # remove old nodejs install the latest edition
 
 apt-get autoremove -y nodejs
+rm -rf /usr/bin/node
 curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
 apt-get install -y nodejs
 
