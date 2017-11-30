@@ -35,7 +35,7 @@ apt-get install -y nodejs
 mkdir /var/www
 cd /var/www && mkdir /var/www/ghost
 cd ghost
-npm i -g ghost-cli
+npm i -g sqlite3 && npm i -g ghost-cli
 ghost install local
 
 # config ghost
