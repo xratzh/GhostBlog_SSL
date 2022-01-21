@@ -27,7 +27,7 @@ apt-get install curl unzip sudo -y
 
 apt-get autoremove -y nodejs
 rm -rf /usr/bin/node
-curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
+curl --silent --location https://deb.nodesource.com/setup_16.x | sudo bash -
 apt-get install -y nodejs
 
 # install ghost-cli and install ghost
@@ -124,8 +124,6 @@ service nginx restart
 cat >> /var/spool/cron/crontabs/root <<EOF
 0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade
 EOF
-
-clear
 
 echo " "
 echo "####################################################################"
