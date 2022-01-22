@@ -29,7 +29,7 @@ yum install curl unzip -y
 
 yum autoremove -y nodejs
 rm -rf /usr/bin/node
-curl -sL https://rpm.nodesource.com/setup_6.x | bash -
+curl -sL https://rpm.nodesource.com/setup_16.x | bash -
 yum install -y nodejs
 ln -s /usr/bin/node /usr/bin/nodejs
 
