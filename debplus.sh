@@ -78,9 +78,9 @@ service nginx restart
 
 # letsencryt
 
-cd /opt && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
+apt install certbot
 
-/opt/certbot-auto certonly --webroot -w /var/www/ghost -d "$URL"
+certbot certonly --webroot -w /var/www/ghost -d "$URL"
 
 # add ssl into nginx config file
 
@@ -122,7 +122,7 @@ service nginx restart
 # add a crontab job
 
 cat >> /var/spool/cron/crontabs/root <<EOF
-0 0 1 */2 * /opt/certbot-auto renew --quiet --no-self-upgrade
+0 0 1 */2 * /opt/certbot renew --quiet --no-self-upgrade
 EOF
 
 echo " "
