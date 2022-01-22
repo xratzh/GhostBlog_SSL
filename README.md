@@ -1,6 +1,25 @@
 ## A script to install ghost blog with ssl automatically
 ------
 [中文文档](https://github.com/xratzh/GhostBlog_SSL/blob/master/README_CN.md)
+
+Recommend to use [Ghost on docker](https://hub.docker.com/_/ghost)  
+
+Easy and nice!  
+Step1,install docker:
+```shell
+curl -sSL https://get.docker.com/ | sh
+```
+
+Step2,install Ghost:
+```shell
+docker run --name ghost \
+ -p 127.0.0.1:Yourport:2368 \
+ -e url=https://Yourdomain \
+ -v /var/www/ghost/content:/var/lib/ghost/content \
+ --restart=always \
+  -d ghost
+```
+
 ## There are two editions of Ghost.`*plus` is the version over 1.0.0.And non-plus is the version bellow 1.0.0.
 
 #### Firewall settings
